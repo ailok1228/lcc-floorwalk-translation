@@ -31,6 +31,27 @@ const siteData = {
         },
         completed: {
             en: "Completed", "zh-hk": "完成", bn: "সম্পন্ন", ar: "مكتمل", fa: "تکمیل شد", ckb: "تەواوکرا", ur: "مکمل", prs: "تکمیل شد", ro: "Finalizat", ti: "ተዛዚሙ", pl: "Zakończono", cs: "Dokončeno", ps: "بشپړ شو", pt: "Concluído", es: "Completado", fr: "Terminé", sk: "Dokončené", hi: "पूरा हुआ"
+        },
+        // 新增：Conversion 頁面嘅標題指示
+        check_instruction: {
+            en: "Please check below instruction",
+            "zh-hk": "請查閱以下指示",
+            bn: "অনুগ্রহ করে নিচের নির্দেশাবলী পরীক্ষা করুন",
+            ar: "يرجى التحقق من التعليمات أدناه",
+            fa: "لطفاً دستورالعمل زیر را بررسی کنید",
+            ckb: "تکایە سەیری ڕێنماییەکانی خوارەوە بکە",
+            ur: "براہ کرم ذیل کی ہدایات چیک کریں",
+            prs: "لطفاً دستورالعمل زیر را بررسی کنید",
+            ro: "Vă rugăm să verificați instrucțiunile de mai jos",
+            ti: "በጃኹም ነዚ ዝስዕብ መምርሒ ተወከሱ",
+            pl: "Proszę zapoznać się z poniższą instrukcją",
+            cs: "Přečtěte si prosím níže uvedené pokyny",
+            ps: "مهرباني وکړئ لاندې لارښوونې وګورئ",
+            pt: "Por favor, verifique as instruções abaixo",
+            es: "Por favor, consulte las instrucciones a continuación",
+            fr: "Veuillez consulter les instructions ci-dessous",
+            sk: "Prečítajte si prosím nižšie uvedené pokyny",
+            hi: "कृपया नीचे दिए गए निर्देश देखें"
         }
     },
 

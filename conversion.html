@@ -12,7 +12,7 @@
             padding: 40px;
             box-shadow: var(--shadow);
             text-align: center;
-            margin-top: 20px;
+            /* 已移除 margin-top: 20px; 讓方塊可以正常 overlap */
         }
         .main-message { 
             font-size: 28px; 
@@ -44,7 +44,7 @@
     
     <div class="header-bottom">
         <div class="header-inner">
-            <h1 id="page-title">Information</h1>
+            <h1 id="page-title">Please check below instruction</h1>
         </div>
     </div>
 </header>
@@ -70,14 +70,16 @@
         langDisplayEl.innerText = `${currentLang.native} | ${currentLang.en}`;
     }
 
+    const nativeInstructionTitle = siteData.ui.check_instruction[langCode] || siteData.ui.check_instruction['en'];
     const pageTitleEl = document.getElementById('page-title');
+    
     if (langCode === 'en') {
-        pageTitleEl.innerHTML = "Information";
+        pageTitleEl.innerHTML = nativeInstructionTitle;
     } else {
         pageTitleEl.innerHTML = `
-            Information <br>
+            ${nativeInstructionTitle} <br>
             <span style="display:block; font-size: 0.6em; font-weight: 400; color: rgba(255,255,255,0.8); margin-top: 4px;">
-                Information
+                Please check below instruction
             </span>
         `;
     }
@@ -89,7 +91,7 @@
         const nativeMsg = templateData[langCode] || templateData['en'];
         const englishMsg = templateData['en'];
         
-        const btnText = siteData.ui.completed['en'];
+        const btnText = siteData.ui.completed['en']; 
 
         let htmlContent = `
             <div class="main-message" style="direction: ${currentLang.dir}">${nativeMsg}</div>
