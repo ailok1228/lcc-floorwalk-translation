@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information - Leeds City Council</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .message-box {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .main-message { 
+            font-size: 28px; 
+            font-weight: 600; 
+            margin-bottom: 16px; 
+            color: var(--primary-text); 
+        }
+        .sub-message { 
+            font-size: 18px; 
+            color: var(--primary-text); 
+            margin-bottom: 30px; 
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-top">
+        <div class="header-inner">
+            <div class="logo-text">Leeds<br>City Council</div>
+        </div>
+    </div>
+    
+    <div class="header-middle">
+        <div class="header-inner" id="language-display">
+        </div>
+    </div>
+    
+    <div class="header-bottom">
+        <div class="header-inner">
+            <h1 id="page-title">Information</h1>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <div id="message-container" class="message-box">
+    </div>
+</main>
+
+<script src="data.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const langCode = urlParams.get('lang') || 'en'; 
+    const templateId = urlParams.get('template');
+    
+    const currentLang = siteData.languages.find(l => l.code === langCode);
+    document.body.dir = currentLang.dir;
+
+    const langDisplayEl = document.getElementById('language-display');
+    if (langCode === 'en') {
+        langDisplayEl.innerText = "English";
+    } else {
+        langDisplayEl.innerText = `${currentLang.native} | ${currentLang.en}`;
+    }
+
+    const pageTitleEl = document.getElementById('page-title');
+    if (langCode === 'en') {
+        pageTitleEl.innerHTML = "Information";
+    } else {
+        pageTitleEl.innerHTML = `
+            Information <br>
+            <span style="display:block; font-size: 0.6em; font-weight: 400; color: rgba(255,255,255,0.8); margin-top: 4px;">
+                Information
+            </span>
+        `;
+    }
+
+    const container = document.getElementById('message-container');
+    const templateData = siteData.templates[templateId];
+
+    if (templateData) {
+        const nativeMsg = templateData[langCode] || templateData['en'];
+        const englishMsg = templateData['en'];
+        
+        const btnText = siteData.ui.completed['en'];
+
+        let htmlContent = `
+            <div class="main-message" style="direction: ${currentLang.dir}">${nativeMsg}</div>
+            <div class="sub-message" dir="ltr">${langCode !== 'en' ? englishMsg : ''}</div>
+        `;
+
+        htmlContent += `<a href="index.html" class="btn-primary">${btnText}</a>`;
+        
+        container.innerHTML = htmlContent;
+    } else {
+        container.innerHTML = `<p>Error: Information not found.</p><a href="index.html" class="btn-primary">Completed</a>`;
+    }
+</script>
+
+</body>
+</html>

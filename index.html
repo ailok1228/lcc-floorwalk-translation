@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Selection - Leeds City Council</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-top">
+        <div class="header-inner">
+            <div class="logo-text">Leeds<br>City Council</div>
+        </div>
+    </div>
+    
+    <div class="header-middle">
+        <div class="header-inner">
+            English
+        </div>
+    </div>
+    
+    <div class="header-bottom">
+        <div class="header-inner">
+            <h1 id="page-title">Please Select Your Language</h1>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <div id="lang-grid" class="grid">
+        <!-- JS 將自動產生按鈕 -->
+    </div>
+</main>
+
+<script src="data.js"></script>
+<script>
+    const grid = document.getElementById('lang-grid');
+    
+    siteData.languages.forEach(lang => {
+        // 首頁不需要顯示英文選項
+        if (lang.code === 'en') return; 
+
+        const btn = document.createElement('a');
+        btn.className = 'card-btn';
+        btn.href = `category.html?lang=${lang.code}`;
+        
+        if (lang.dir === 'rtl') {
+            btn.style.direction = 'rtl';
+        }
+
+        btn.innerHTML = `
+            <span class="main-text">${lang.native}</span>
+            <span class="sub-text">${lang.en}</span>
+        `;
+        grid.appendChild(btn);
+    });
+</script>
+
+</body>
+</html>

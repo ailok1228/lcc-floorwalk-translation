@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Service - Leeds City Council</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-top">
+        <div class="header-inner">
+            <div class="logo-text">Leeds<br>City Council</div>
+        </div>
+    </div>
+    
+    <div class="header-middle">
+        <div class="header-inner" id="language-display">
+        </div>
+    </div>
+    
+    <div class="header-bottom">
+        <div class="header-inner">
+            <h1 id="page-title">Select Service</h1>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <div id="service-grid" class="grid">
+    </div>
+    
+    <div class="bottom-action">
+        <a id="back-btn" href="#" class="btn-primary">Back</a>
+    </div>
+</main>
+
+<script src="data.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const langCode = urlParams.get('lang') || 'en'; 
+    const catId = urlParams.get('category');
+    
+    const currentLang = siteData.languages.find(l => l.code === langCode);
+    document.body.dir = currentLang.dir;
+
+    const langDisplayEl = document.getElementById('language-display');
+    if (langCode === 'en') {
+        langDisplayEl.innerText = "English";
+    } else {
+        langDisplayEl.innerText = `${currentLang.native} | ${currentLang.en}`;
+    }
+
+    const nativeTitle = siteData.ui.select_service[langCode] || siteData.ui.select_service['en'];
+    const pageTitleEl = document.getElementById('page-title');
+    if (langCode === 'en') {
+        pageTitleEl.innerHTML = nativeTitle;
+    } else {
+        pageTitleEl.innerHTML = `
+            ${nativeTitle} <br>
+            <span style="display:block; font-size: 0.6em; font-weight: 400; color: rgba(255,255,255,0.8); margin-top: 4px;">
+                Select Service
+            </span>
+        `;
+    }
+
+    const grid = document.getElementById('service-grid');
+    const categoryData = siteData.categories.find(c => c.id === catId);
+
+    if(categoryData && categoryData.services) {
+        categoryData.services.forEach(srv => {
+            const nativeText = srv.title[langCode] || srv.title['en'];
+            const englishText = srv.title['en'];
+
+            const btn = document.createElement('a');
+            btn.className = 'card-btn';
+            btn.style.direction = currentLang.dir; 
+            
+            btn.href = `conversion.html?lang=${langCode}&template=${srv.template}`;
+
+            btn.innerHTML = `
+                <span class="main-text">${nativeText}</span>
+                <span class="sub-text">${englishText}</span>
+            `;
+            grid.appendChild(btn);
+        });
+    } else {
+        grid.innerHTML = "<p>Services not found.</p>";
+    }
+
+    document.getElementById('back-btn').href = `category.html?lang=${langCode}`;
+</script>
+
+</body>
+</html>
